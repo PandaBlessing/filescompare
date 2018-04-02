@@ -3,11 +3,6 @@
 
 import os
 import os.path
-# import sys
-# import execjs
-# import re
-# import json
-# import PyV8
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -20,8 +15,8 @@ STR_ARR_RIGHT = []
 #保存一些异常的数据
 STR_ARR_UNNORMAL = []
 
-# 获得js文件内容
-def get_js(path):
+# 获得json文件内容
+def get_json(path):
     str = ''
     with open(path, 'r') as f:
         str += f.read()
@@ -32,20 +27,11 @@ def get_js(path):
 #获得指定的匹配内容
 def getMatchArr(str = ''):
     matchStr = ''
-    startStr = 'var LNG = {'
-    endStr = '};'
-
-    # print str.index(startStr)
-    # print str.index(endStr)
-    # return
-    # if str.startswith(startStr) and str.endswith(endStr):
-    #     matchStr = str[len(startStr):len(str) - len(endStr)]
-    # else:
-    #     matchStr = str
+    startStr = '{{'
+    endStr = '}}'
 
     matchStr = str[(str.index(startStr) + len(startStr)):str.index(endStr)]
 
-    # print matchStr
     strArr = matchStr.split(',')
     arr = []
     for sstr in strArr:
@@ -70,14 +56,12 @@ def getMatchArr(str = ''):
         #去除字符串前后的空格
         kvArr[0] = kvArr[0].strip()
         kvArr[1] = kvArr[1].strip()
-        # print 'kvArr ==== ' + kvArr[0]
         #去除字符串中因为随意拼写而引入的单引号和双引号，统一掉
         newStr = ''
         for ss in kvArr[0]:
             if ss == '\'' or ss == '\"':
                 continue
             newStr += ss
-        # print 'newStr ==== ' + newStr
         kvArr[0] = newStr
 
         kvStrArr.append(kvArr)
@@ -86,7 +70,6 @@ def getMatchArr(str = ''):
     kvStrArr.sort(key=lambda list1: list1[0])
     global STR_ARR_LEFT
     STR_ARR_LEFT += kvStrArr
-    # print kvStrArr
     return kvStrArr
 
 #获得新的json字符串
@@ -114,12 +97,11 @@ def buildJson(sstr):
         print '操作成功！！！！'
         for sstr in STR_ARR_UNNORMAL:
             print sstr
-        # print STR_ARR_UNNORMAL
 
 
 def getStrArr(path):
     print u'开始解析。。。' + path
-    str = get_js(path)
+    str = get_json(path)
     # exeJs(str)
     arr = getMatchArr(str)
     print u'解析完成！！！'

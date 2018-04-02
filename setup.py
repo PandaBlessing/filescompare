@@ -2,7 +2,6 @@
 #coding:utf-8
 
 from distutils.core import setup
-# import py2app
 import py2exe
 
 option = {"pyexe": {"compressed": 1, "optimize": 2, "bundle_files": 1}}

@@ -101,19 +101,9 @@ def write(path1,path2):
                 needArr.append(key)
                 needArr.append(lng2Arr[keys2Arr.index(key)][1])
                 arr.append(needArr)
-
-            #     arr[lngIdx].append(key)
-            #     arr[lngIdx].append(lng2Arr[lng2Idx][1])
-            # else:
-            #     #lng2中不存在的kv使用空字符串代替
-            #     arr[lngIdx].append('')
-            #     arr[lngIdx].append('')
-
         #两个数组中，不相同的补充在arr数组的最后面
         lngDiff = listcmp.complement(keysArr, commonArr)
         lng2Diff = listcmp.complement(keys2Arr, commonArr)
-        # print lngDiff
-        # print lng2Diff
 
         for key in lng2Diff:
             needArr = []
@@ -144,24 +134,21 @@ def readAndBuildJson(path1, path2):
 
 
 def main(path1,path2):
-    # write(path1,path2)
-
-    # readAndBuildJson(r'./lng.xls',True)
     input()
 
 
 def input():
-    inputType = raw_input(u'请选择：\n1、导入js（最后会生成xls文件）\n2、导出json文件（当前目录下必须有lng.xls文件）\n')
+    inputType = raw_input(u'请选择：\n1、导入json（文件内部格式必须是***{{key:value}}***）\n2、导出json文件（当前目录下必须有lng.xls文件）\n'.decode('utf-8').encode('gbk'))
     path2 = False
     if inputType == '1':
-        path1 = raw_input(u'请输入第一个js的路径（必须输入）\n')
-        path2 = raw_input(u'输入第二个js路径,如果不需要请输入2\n')
+        path1 = raw_input(u'请输入第一个json的路径（必须输入）\n'.decode('utf-8').encode('gbk'))
+        path2 = raw_input(u'输入第二个json路径,如果不需要请输入2\n'.decode('utf-8').encode('gbk'))
         if path2 == '2':
             path2 = False
 
         write(path1, path2)
     elif inputType == '2':
-        path2 = raw_input(u'如果需要导出xls的第3、4列，请输入1\n否则请输入2\n')
+        path2 = raw_input(u'如果需要导出xls的第3、4列，请输入1\n否则请输入2\n'.decode('utf-8').encode('gbk'))
         if path2 == '1':
             path2 = True
         elif path2 == '2':
@@ -169,7 +156,7 @@ def input():
 
         readAndBuildJson(r'./lng.xls', path2)
     else:
-        print u'请输入正确的序号！'
+        print u'请输入正确的序号！'.decode('utf-8').encode('gbk')
         input()
 
 if __name__ == '__main__':
